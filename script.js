@@ -1,5 +1,5 @@
 
-let dataset2=[[20,45],[30,70],[100,50],[150,30],[70,35],[280,180],[15,30],[20,95]]
+
 let nodeList;
 let linkList;
 let padding= 200;
