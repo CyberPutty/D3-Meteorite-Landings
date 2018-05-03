@@ -40,15 +40,15 @@ document.addEventListener('DOMContentLoaded', function(){
 
 function setChart(){
 
-if (!!window.chrome){
+if (meteorList[1].name){
+    meteors=meteorList[0];
+    map=meteorList[1];
+}
+else{
 meteors=meteorList[1];
 map=meteorList[0];
 }
-if(typeof InstallTrigger !== 'undefined'){
-meteors=meteorList[0];
-map=meteorList[1];
-}
-console.log(meteors);
+
 
 chart= d3.select("#chart")
 .append("svg")
@@ -132,15 +132,18 @@ chart.on("mousemove",function(){
     let x= d3.mouse(this)[0];
     let y= d3.mouse(this)[1];
     
-    if(rotation+ 1>360){
-        rotation= rotation-360;
-    }
+   
     if(mouseX>x){
-        rotation= rotation+ (x-rotation);
+        rotation= (mouseX-(mouseX-x));
+        
+       
     }
     else if(mouseX<x){
-        rotation= rotation+ (x-rotation);
+        rotation= (mouseX+(x-mouseX));
+        
     }
+    formatRotation();
+    console.log(rotation);
     projection.rotate([rotation,0,0]);
   chart.select(".map").selectAll("path")
     .attr("d",path);
@@ -250,10 +253,19 @@ function fetchWiki(meteorname,d,meteor){
         }
         
     });
-        
+     
+    
+
     
 }
-
+function formatRotation(){
+    while(rotation>360){
+        rotation-=360;
+    }
+    while(rotation<0){
+        rotation+=360;
+    }
+}
 
 
 
